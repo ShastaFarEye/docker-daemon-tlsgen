@@ -1,4 +1,4 @@
-docker-daemon-tlsgen - dockerd-tlsgen
+docker-daemon-tlsgen
 =====================================
 
 FROM shastafareye/bash - 
@@ -11,7 +11,7 @@ ENTRYPOINT /usr/local/bin/make-cert.sh
 Source available on github:
 https://github.com/shastafareye/docker-daemon-tlsgen
 Automated Build on Dockerhub from Github Sources:
-https://registry.hub.docker.com/dockerd-tlsgen
+https://registry.hub.docker.com/u/shastafareye/docker-daemon-tlsgen/
 
 mostly "stock" gentoobb / gentoo-base-builder 
 Uses Sven's generate_cert.go prebuilt for linux
