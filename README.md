@@ -1,10 +1,16 @@
 docker-daemon-tlsgen - dockerd-tlsgen
 =====================================
 
-FROM shastafareye/bash - Baseimage built from 
-VOLUME /docker-keys
+FROM shastafareye/bash - 
+Baseimage built with gentoobb base builder kit
+from https://github.com/edannenberg/gentoo-bb
 
+VOLUME /docker-keys
+ENTRYPOINT /usr/local/bin/make-cert.sh
+
+Source available on github:
 https://github.com/shastafareye/docker-daemon-tlsgen
+Automated Build on Dockerhub from Github Sources:
 https://registry.hub.docker.com/dockerd-tlsgen
 
 mostly "stock" gentoobb / gentoo-base-builder 
@@ -21,8 +27,21 @@ Makefile:dockerbuild included in the generate_cert project.
 <code>
 docker run -it --rm -v $(pwd)/my-keys:/docker-keys shastafareye/dockerd-tlsgen
 </code>
+This will 
+ - mount your current directory into /docker-keys
+ - look for a CA certificate and key
+ - make a new CA if needed
+ - use your existing CA if present in correct form
+ - stop if you're missing either CA cert or CA Key
+ - And then it will ask you if you'd like a Client or Server Cert and make one for you
 
-# Alternatively make it a Dataonly-Volume:
+Server certs require a servername and IP address
+Client certs require a name
+Script will bail if your chosen name exists. 
+
+Error checking is not exhaustive, make backups ;) 
+
+# Use as a Dataonly-Volume:
 <code>
 docker run  --name docker_tlsfiles -v /docker-keys shastafareye/dockerd-tlsgen echo TLSKeyData
 </code>
