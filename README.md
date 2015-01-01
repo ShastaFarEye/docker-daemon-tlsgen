@@ -25,7 +25,7 @@ Makefile:dockerbuild included in the generate_cert project.
 
 # Usage
 <code>
-docker run -it --rm -v $(pwd)/my-keys:/docker-keys shastafareye/dockerd-tlsgen
+docker run -it --rm -v $(pwd)/my-keys:/docker-keys shastafareye/docker-daemon-tlsgen
 </code>
 This will 
  - mount your current directory into /docker-keys
@@ -43,11 +43,11 @@ Error checking is not exhaustive, make backups ;)
 
 # Use as a Dataonly-Volume:
 <code>
-docker run  --name docker_tlsfiles -v /docker-keys shastafareye/dockerd-tlsgen echo TLSKeyData
+docker run  --name docker_tlsfiles -v /docker-keys shastafareye/docker-daemon-tlsgen echo TLSKeyData
 </code>
 # Use the Datavolume:
 <code>
-docker run -it --rm --volumes-from docker_tlsfiles shastafareye/dockerd-tlsgen
+docker run -it --rm --volumes-from docker_tlsfiles shastafareye/docker-daemon-tlsgen
 </code>
 # Backup keys from Volume:
 <code>
@@ -55,7 +55,7 @@ docker run -it --rm \
   --name tlsfiles_backup \
   --volumes-from docker_tlsfiles \
   -v $(pwd):/backup \
-  shastafareye/dockerd-tlsgen \
+  shastafareye/docker-daemon-tlsgen \
   tar -cpvf /backup/docker-keys.tar /docker-keys 
 </code>
 
@@ -70,7 +70,7 @@ git clone https://github.com/shastafareye/docker-daemon-tlsgen
 rm docker-daemon-tlsgen/usr/local/bin/generate_cert
 cp -av generate_cert-0.1-linux-amd64 docker-daemon-tlsgen/usr/local/bin/generate_cert
 cd docker-daemon-tlsgen
-docker build -t REPO/dockerd-tlsgen
+docker build -t REPO/docker-daemon-tlsgen
 </code>
 
 ## Security of certificates and proper usages with Docker Client & Daemon is an exercise for the reader!
